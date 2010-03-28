@@ -25,7 +25,7 @@ Each server controls two servers:
 import ping,socket
 
 def checkChildren(self):
-    for child in ['A', 'B']:
+    for child in [self.hostname+'A', self.hostname+'B']:
         hostname = self.hostname + 'child'
         instance_id = getInstanceId(hostname)
         try:
