@@ -44,7 +44,6 @@ class Server():
         self.ipaddress = socket.gethostbyname(self.hostname)
         self.cloud = RimuHostingNodeDriver(RIMU_API_KEY)
         self.all_nodes = self.cloud.list_nodes()
-        print self.all_nodes
 
     def checkChildren(self):
         for child in [self.hostname+'A', self.hostname+'B']:
@@ -57,8 +56,8 @@ class Server():
                 print "%s not responding to monitor, restarting" % child_hostname
                 try:
                     if child_instance_id != None: 
-                        self.stopServer(child_instance_id)
-                    self.startServer(child_hostname)
+                        self.destroy(child_instance_id)
+                    self.create(child_hostname)
                 except Exception,ex:
                     self.sendNotification(child_hostname, ex)
 
@@ -77,14 +76,14 @@ class Server():
     """
     def monitor(self, ipaddress):
         # TODO
-        raise Exception('this')
+        raise Exception('Monitoring failed for %s' % ipaddress)
 
-    def startServer(self, child_hostname):
+    def create(self, child_hostname):
         # TODO
         #self.cloud.create_node(name=child_hostname, image=MASTER_IMAGE, size=SERVER_SIZE)
         raise Exception('Could not create %s' % child_hostname)
 
-    def stopServer(self, instance_id):
+    def destroy(self, instance_id):
         # TODO
         #self.cloud.destroy_node(instance_id)
         raise Exception('Could not destroy %s' % instance_id)
