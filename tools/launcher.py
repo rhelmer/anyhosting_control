@@ -30,43 +30,49 @@ import ConfigParser
 #from libcloud.providers import get_driver
 from libcloud.drivers.rimuhosting import RimuHostingNodeDriver
 
-config = ConfigParser.ConfigParser()
-config.read('launcher.cfg')
-RIMU_API_KEY = config.get('Main','RIMU_API_KEY')
-MASTER_IMAGE = config.get('Main','MASTER_IMAGE')
-SERVER_SIZE = config.get('Main','SERVER_SIZE')
 
 class Server():
     def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.read('launcher.cfg')
+        rimu_api_key = config.get('Main','RIMU_API_KEY')
+        self.master_image = config.get('Main','MASTER_IMAGE')
+        self.server_size = config.get('Main','SERVER_SIZE')
+        self.domain = config.get('Main','DOMAIN')
 
         self.hostname = socket.gethostname()
-        # this assumes that /etc/hosts is set correctly, and not to 127.0.0.1
-        self.ipaddress = socket.gethostbyname(self.hostname)
-        self.cloud = RimuHostingNodeDriver(RIMU_API_KEY)
+
+        self.cloud = RimuHostingNodeDriver(rimu_api_key)
         self.all_nodes = self.cloud.list_nodes()
 
     def checkChildren(self):
-        for child in [self.hostname+'A', self.hostname+'B']:
-            child_hostname = self.hostname + child
+        for child_hostname in [self.hostname+'A', self.hostname+'B']:
             child_instance_id = None
+            child_fqdn = '%s.%s' % (child_hostname, self.domain)
             try:
-                child_instance_id = self.getInstanceId(child_hostname)
-                self.monitor(child_hostname)
+                child_instance_id = self.getInstanceId(child_fqdn)
+                self.monitor(child_fqdn)
             except Exception,e:
-                print "%s not responding to monitor, restarting" % child_hostname
+                print "%s not responding to monitor, restarting. Exception: %s" % (child_fqdn, e)
                 try:
                     if child_instance_id != None: 
                         self.destroy(child_instance_id)
-                    self.create(child_hostname)
+                    node = self.create(child_fqdn, self.master_image, self.server_size)
+                    reportDNS(child_fqdn, node.ipaddress)
                 except Exception,ex:
-                    self.sendNotification(child_hostname, ex)
+                    self.sendNotification(child_fqdn, ex)
+                    raise ex
 
     def getInstanceId(self, hostname):
         # return the first server that has this hostname
-        return filter(lambda x: x.name==hostname, self.all_nodes)[0].id
+        for node in self.all_nodes:
+            if hostname == node.name:
+                return node.id
+            else:
+                return None
 
-    def sendNotification(self, child_hostname, notice):
-        print "Need human attention, cannot manage %s. Exception: %s" % (child_hostname, notice)
+    def sendNotification(self, hostname, e):
+        print "Need human attention, unable to restart %s. Exception: %s" % (hostname, e)
 
     """
     A monitors B and C; if these are not passing monitoring tests then the
@@ -74,14 +80,14 @@ class Server():
     ("A") is externally monitored and restarted, manually if necessary.
 
     """
-    def monitor(self, ipaddress):
+    def monitor(self, hostname):
         # TODO
-        raise Exception('Monitoring failed for %s' % ipaddress)
+        raise Exception('Monitoring failed for %s' % hostname)
 
-    def create(self, child_hostname):
+    def create(self, hostname, master_image, server_size):
         # TODO
-        #self.cloud.create_node(name=child_hostname, image=MASTER_IMAGE, size=SERVER_SIZE)
-        raise Exception('Could not create %s' % child_hostname)
+        #self.cloud.create_node(name=hostname, image=master_image, size=server_size)
+        raise Exception('Could not create %s' % hostname)
 
     def destroy(self, instance_id):
         # TODO
@@ -96,24 +102,31 @@ class Server():
 
     TODO: look into puppet
     """
-    def serverSync(self):
+    def sync(self):
         # TODO
         # $ rsync -a rsync://admin/anyhosting/etc/apache2/ /etc/apache2/
         # $ rsync -a rsync://admin/anyhosting/www/ /var/www/
-        pass
+        raise Exception('Could not sync %s' % self.hostname)
 
     """
     DNS servers are external to this system. Nodes are responsible for reporting
     themselves to the DNS server.
     """
-    def reportDNS(self):
-        # TODO 
-        pass
+    def reportDNS(self, hostname, ipaddress):
+        # TODO https://rimuhosting.com/dns/dyndns.jsp
+        raise Exception('Could not sync %s' % self.hostname)
 
 def main(argv):
     server = Server()
-    server.serverSync()
-    server.checkChildren()
+    try:
+        server.sync()
+    except Exception,e:
+        print e
+
+    try:
+        server.checkChildren()
+    except Exception,e:
+        print e
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
