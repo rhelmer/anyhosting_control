@@ -55,9 +55,11 @@ def monitor(hostA):
     delay = ping.do_one(ipaddress, timeout=2)
 
 def startServer():
+    # TODO libcloud
     pass
 
 def stopServer(instance_id):
+    # TODO libcloud
     pass
 
 """
@@ -71,6 +73,7 @@ The git repo is on all servers, but only A is written to (the others sync the re
 TODO: look into puppet
 """
 def serverSync(self):
+    # TODO
     # 1) always check master for changes
     #  $ git pull /var/svn/anyhosting /home/sys/anyhosting
     pass
@@ -80,6 +83,7 @@ DNS servers are external to this system. Nodes are responsible for reporting
 themselves to the DNS server.
 """
 def reportDNS(self):
+    # TODO 
     pass
 
 def main(argv):
