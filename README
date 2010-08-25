@@ -1,5 +1,8 @@
 AnyHosting Control Panel
 
 tools  
-    launcher.py - init service
-     
+    anyhosting_adduser.sh      - set up chrooted shared vhost user
+    anyhosting_webalizer       - run usage reports for shared vhost users
+    anyhosting_bandwidth       - (experimental) calculate bandwidth from logs
+    calculate-data-transfer.py - (experimental) calculate bandwidth from logs
+    launcher.py                - (experimental) cloud init service

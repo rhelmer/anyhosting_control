@@ -1,0 +1,5 @@
+FILE=$1
+DOMAIN=$2
+bandwidth=`awk '{sum+= $(NF-1)} {sum+= $NF} END {print sum}' $FILE`
+msg="bandwidth for $DOMAIN is $bandwidth"
+echo $msg | mailx -s "bandwidth for $DOMAIN is $bandwidth" admin@anyhosting.com

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd /var/www
+
+for domain in `cat DOMAINS`
+do
+  webalizer -q -p -D /var/www/webalizer_dns.cache -N 5 -o $domain/htdocs/webalizer/ -n $domain $domain/logs/access.log.1
+done
