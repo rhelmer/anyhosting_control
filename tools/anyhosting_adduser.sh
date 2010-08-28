@@ -69,5 +69,5 @@ fatal "Could not copy system apache proxy config into system dir: /etc/apache2/s
 # TODO the rest is manual, automate
 echo "TODO Configs copied into place, customize:"
 echo "sensible-editor ${WEBDIR}/conf/apache2.conf"
-echo "sensible-editor /etc/apache2/sites-available/${DOMAIN}
+echo "sensible-editor /etc/apache2/sites-available/${DOMAIN}"
 echo "/usr/sbin/a2ensite ${DOMAIN}"
