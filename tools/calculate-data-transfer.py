@@ -1,3 +1,4 @@
+# from http://blog.samat.org/2006/05/25/calculating-bandwidth-from-a-combined-format-web-server-log
 #!/usr/bin/python
 import re
 import sys
