@@ -1,4 +1,10 @@
 #!/bin/sh
+#
+# The rationale for doing it this way is explained in these blog posts:
+# 
+# http://anyhosting.com/blog/2009/10/01/secure-shared-web-hosting-on-ubuntu-server-part-1/
+# http://anyhosting.com/blog/2009/10/03/secure-shared-web-hosting-on-ubuntu-server-part-2/
+# http://anyhosting.com/blog/2009/10/04/secure-shared-web-hosting-on-ubuntu-server-part-3/
 
 USERNAME=$1
 DOMAIN=$2
