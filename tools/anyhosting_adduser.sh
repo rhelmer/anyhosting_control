@@ -46,18 +46,22 @@ fatal "Could not change mode on subdir logs"
 chown www-data:${USERNAME} logs
 fatal "Could not chown logs to www-data:${USERNAME}"
 chown ${USERNAME}:${USERNAME} htdocs tmp
-echo "/usr            ${WEBDIR}/usr ext3 bind,ro      0       0" >> /etc/fstab
+echo "/usr ${WEBDIR}/usr ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /usr to fstab"
-echo "/etc            ${WEBDIR}/etc ext3 bind,ro      0       0" >> /etc/fstab
+echo "/etc ${WEBDIR}/etc ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /etc to fstab"
-echo "/lib            ${WEBDIR}/lib ext3 bind,ro      0       0" >> /etc/fstab
+echo "/lib ${WEBDIR}/lib ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /lib to fstab"
-echo "/bin            ${WEBDIR}/bin ext3 bind,ro      0       0" >> /etc/fstab
+echo "/bin ${WEBDIR}/bin ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /bin to fstab"
-echo "/var            ${WEBDIR}/var ext3 bind,ro      0       0" >> /etc/fstab
+echo "/var ${WEBDIR}/var ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /var to fstab"
 mount -a
 fatal "Could not mount -a"
+# TODO remount read-only mounts
+# Also need this on reboot
+echo "TODO need to remount to get read-only bind mounts"
+echo "See http://lwn.net/Articles/281157/"
 cp /usr/local/etc/anyhosting_apache2.conf ${WEBDIR}/conf/apache2.conf
 fatal "Could not copy user apache config into webdir: ${WEBDIR}/conf/apache2.conf"
 cp /usr/local/etc/anyhosting_apache_proxy.conf /etc/apache2/sites-available/${DOMAIN}
