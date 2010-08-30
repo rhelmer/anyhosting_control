@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="common.css" /> 
+    <title>Users</title>
+  </head>
+  <body>
+    <div id="breadcrumbs"><a href="/control_panel">Home</a> &gt; Users</div>
+    <div id="users">
+      {% if users %}
+        {% for user in users %}
+          <div id="{{ user.id }}">{{ user.name }}</div>
+        {% endfor %}
+      {% endif %}
+      <button id="remove">-</button>
+      <button id="add">+</button>
+    </div>
+    <div id="profile">
+      <img id="profilepicture">
+      <button id="changepassword">Change Password</button><br>
+      <input type="text" value="{{ selected.name }}">First Name</input><br>
+      <input type="email" value="{{ selected.email }}">Email Address</input><br>
+      <input type="phone" value="{{ selected.phone }}">Phone Number</input><br>
+      <textarea id="address">{{ selected.address }}"</textarea>Mailing Address<br>
+      <button id="save">Save</button>
+    </div>
+  </body>
+</html>
