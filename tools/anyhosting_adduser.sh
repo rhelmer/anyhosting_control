@@ -54,14 +54,14 @@ echo "/lib ${WEBDIR}/lib ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /lib to fstab"
 echo "/bin ${WEBDIR}/bin ext3 bind,ro 0 0" >> /etc/fstab
 fatal "Could not add /bin to fstab"
-echo "/var ${WEBDIR}/var ext3 bind,ro 0 0" >> /etc/fstab
+echo "/var ${WEBDIR}/var ext3 bind,rw 0 0" >> /etc/fstab
 fatal "Could not add /var to fstab"
 mount -a
 fatal "Could not mount -a"
 # TODO hack for remount read-only mounts
 # TODO need this on reboots too...
 echo "HACK remounting to get read-only bind mounts"
-mount | grep bind | while read line; do mount -o remount,ro `echo $line | awk '{print $3}'`; done
+mount | grep bind | grep ro | while read line; do mount -o remount,ro `echo $line | awk '{print $3}'`; done
 echo "See http://lwn.net/Articles/281157/"
 cp /usr/local/etc/anyhosting_apache2.conf ${WEBDIR}/conf/apache2.conf
 fatal "Could not copy user apache config into webdir: ${WEBDIR}/conf/apache2.conf"
