@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="common.css" /> 
     <title>Users</title>
   </head>
   <body>
-    <div id="controls">Home &gt; Users</div>
+    <div id="breadcrumbs"><a href="home.html">Home</a> &gt; Users</div>
     <div id="users">
       <div id="user1">User1</div>
       <div id="user2">User2</div>
       <button id="remove">-</button>
       <button id="add">+</button>
     </div>
-    <div id="profile">Profile Image</div>
-    <button id="changepassword">Change Password</button>
-    <input type="text">Full Name</input>
-    <input type="email">Email Address</input>
-    <input type="phone">Phone Number</input>
-    <textarea id="address">Mailing Address</textarea>
-    <button id="save">Save</button>
+    <div id="profile">
+      <img id="profilepicture">
+      <button id="changepassword">Change Password</button><br>
+      <input type="text">Full Name</input><br>
+      <input type="email">Email Address</input><br>
+      <input type="phone">Phone Number</input><br>
+      <textarea id="address">Mailing Address</textarea><br>
+      <button id="save">Save</button>
+    </div>
   </body>
 </html>

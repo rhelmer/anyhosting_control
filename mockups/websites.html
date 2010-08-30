@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="common.css" /> 
     <title>Websites</title>
   </head>
   <body>
-    <div id="controls">Home &gt; Websites</div>
+    <div id="breadcrumbs"><a href="home.html">Home</a> &gt; Websites</div>
     <div id="users">
-      <div id="user1">User1</div>
       <div id="user2">User2</div>
       <button id="remove">-</button>
       <button id="add">+</button>
     </div>
-    <div id="siteselector">
-      <select>
-        <option>ExampleOne.com</option>
-        <option selected>ExampleTwo.com</option>
-        <option>ExampleThree.com</option>
-      </select>
-      <button id="remove">-</button>
-      <button id="add">+</button>
+    <div id="controls">
+      <div id="siteselector">
+        ExampleTwo.com<br>
+        <select>
+          <option>ExampleOne.com</option>
+          <option selected>ExampleTwo.com</option>
+          <option>ExampleThree.com</option>
+        </select>
+        <button id="remove">-</button>
+        <button id="add">+</button>
+      </div>
+      <div id="domainselector">
+        <select multiple size="5">
+          <option>www.ExampleOne.com</option>
+          <option>www.ExampleTwo.co.uk</option>
+          <option>...</option>
+        </select>
+        <button id="remove">-</button>
+        <button id="add">+</button>
+      </div>
+      <div id="sitecontrols">
+        <input type="checkbox">Website enabled</input><br>
+        <input type="checkbox">PHP enabled</input><br>
+        <input type="checkbox">CGI enabled</input><br>
+        <input type="checkbox">WSGI enabled</input><br>
+        <button id="save">Save</button>
+      </div>
     </div>
-    ExampleTwo.com
-    <div id="domainselector">
-      <select>
-        <option>www.ExampleOne.com</option>
-        <option>www.ExampleTwo.co.uk</option>
-        <option>...</option>
-      </select>
-      <button id="remove">-</button>
-      <button id="add">+</button>
-    </div>
-    <input type="checkbox">Website enabled</input>
-    <input type="checkbox">PHP enabled</input>
-    <input type="checkbox">CGI enabled</input>
-    <input type="checkbox">WSGI enabled</input>
-    <button id="save">Save</button>
   </body>
 </html>

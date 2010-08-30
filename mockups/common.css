@@ -1,0 +1,36 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  color: #000;
+  background: #a7a09a;
+}
+#wrap {
+  width 750px;
+  margin:0 auto;
+  background: #99c;
+}
+#breadcrumbs {
+  background: green;
+}
+#icons,
+#search {
+  text-align: center;
+}
+#profile, 
+#controls,
+#reports {
+  float: left;
+  width: 500px;
+  background: #9c9;
+}
+
+#users,
+#charts {
+  float: left;
+  width: 250px;
+  background: #c9c;
+}
+
+#bandwidthused {
+  color: green;
+}
